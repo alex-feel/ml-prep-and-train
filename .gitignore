@@ -1,3 +1,26 @@
+### Data ###
+*.csv
+*.txt
+*.xlsx
+*.log
+*.pkl
+*.pikle
+*.json
+*.h5
+*.png
+*.jpg
+
+# Profiling data
+.prof
+/catboost_info/
+
+### PyCharm ###
+
+# Ignore IDE files
+.idea/*
+
+### Python ###
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
