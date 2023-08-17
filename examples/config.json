@@ -1,0 +1,138 @@
+{
+    "tag": "titanic",
+    "columns": [
+        "Survived",
+        "Pclass",
+        "Sex",
+        "Age",
+        "SibSp",
+        "Parch",
+        "Fare",
+        "Embarked"
+    ],
+    "target_column": "Survived",
+    "test_size": 0.3,
+    "random_state": 42,
+    "preprocessing": {
+        "steps": [
+            "step_filling_missing_numeric_values_with_stats_method",
+            "step_filling_missing_text_values",
+            "step_one_hot_encoding",
+            "step_ordinal_encoding",
+            "step_target_encoding",
+            "step_woe_encoding",
+            "step_scaling"
+        ],
+        "actions": {
+            "step_filling_missing_numeric_values_with_stats_method": {
+				"filling_missing_numeric_values_with_stats_method": [
+                    {
+                        "column": "Age",
+                        "fill_missing_values_method": "median"
+                    }
+                ]
+			},
+            "step_filling_missing_text_values": {
+				"filling_missing_text_values": [
+                    {
+                        "column": "Embarked",
+                        "fill_missing_values_method": "placeholder",
+                        "placeholder": "S"
+                    }
+                ]
+			},
+            "step_one_hot_encoding": {
+                "one_hot_encoding": [
+                    {
+                        "column": "Sex",
+                        "drop_first": true
+                    }
+                ]
+            },
+            "step_ordinal_encoding": {
+                "ordinal_encoding": [
+                    {
+                        "column": "Pclass",
+                        "mapping": {
+                            "3": 1,
+                            "2": 2,
+                            "1": 3
+                        }
+                    }
+                ]
+            },
+            "step_target_encoding": {
+                "target_encoding": [
+                    {
+                        "column": "Age",
+                        "type": "continuous",
+                        "target_column": "Survived",
+                        "encoding_method": "mean",
+                        "binning_method": "equal_size",
+                        "quantiles": "max"
+                    },
+                    {
+                        "column": "Fare",
+                        "type": "continuous",
+                        "target_column": "Survived",
+                        "encoding_method": "mean",
+                        "binning_method": "equal_size",
+                        "quantiles": "max"
+                    },
+                    {
+                        "column": "Embarked",
+                        "type": "categorical",
+                        "target_column": "Survived",
+                        "encoding_method": "mean"
+                    },
+                    {
+                        "column": "Parch",
+                        "type": "continuous",
+                        "target_column": "Survived",
+                        "encoding_method": "mean",
+                        "binning_method": "equal_size",
+                        "quantiles": "max"
+                    }
+                ]
+            },
+            "step_woe_encoding": {
+				"woe_encoding": [
+                    {
+                        "column": "SibSp",
+                        "type": "continuous",
+                        "target_column": "Survived",
+                        "binning_method": "equal_size",
+                        "quantiles": "max"
+                    }
+                ]
+			},
+            "step_scaling": {
+				"scaling": {
+                    "scaler_type": "standard",
+                    "columns": [
+                        "Pclass",
+                        "Sex_female",
+                        "Age",
+                        "SibSp",
+                        "Parch",
+                        "Fare",
+                        "Embarked"
+                   ]
+                }
+			}
+        }
+    },
+    "training": {
+        "data_is_balanced": true,
+        "approach_type": "individual",
+        "base_model_names": ["LogisticRegression"],
+        "load_models_from_disk": false,
+        "base_model_names_for_files": [],
+        "stacking_model_type": "neural_network",
+        "cross_validation_search_type": "randomized",
+        "num_cv_folds": 5,
+        "num_iter": 50,
+        "scoring": ["f1"],
+        "overfitting_threshold": 0.05
+    }
+}
