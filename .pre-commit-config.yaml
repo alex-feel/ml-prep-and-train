@@ -1,0 +1,40 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+    - id: end-of-file-fixer
+      name: End of line fixer
+      description: Ensures that files is either empty, or ends with one newline
+    - id: trailing-whitespace
+      name: Trailing whitespace
+      description: Trims trailing whitespace
+#    - id: double-quote-string-fixer
+#      name: Single quoted strings
+#      description: Replaces double quoted strings with single quoted strings
+#      files: (\.py)$
+
+- repo: https://github.com/pre-commit/mirrors-autopep8
+  rev: v2.0.2
+  hooks:
+    - id: autopep8
+      name: Auto PEP 8
+      description: Automatically format Python code to conform to the PEP 8 style guide
+      files: (\.py)$
+
+- repo: https://github.com/asottile/reorder_python_imports
+  rev: v3.10.0
+  hooks:
+    - id: reorder-python-imports
+      name: Python imports order
+      description: Reorder imports in Python files
+      files: (\.py)$
+
+- repo: https://github.com/PyCQA/flake8
+  rev: 6.1.0
+  hooks:
+    - id: flake8
+      additional_dependencies: [flake8-literal, flake8-simplify, pep8-naming, flake8-unused-arguments]
+      name: Flake8
+      description: Enforce style consistency
+      args: [--count, --max-complexity=25, --max-line-length=127]
+      files: (\.py)$
