@@ -127,7 +127,7 @@
         "approach_type": "individual",
         "base_model_names": ["LogisticRegression"],
         "load_models_from_disk": false,
-        "base_model_names_for_files": [],
+        "base_model_files": [],
         "stacking_model_type": "neural_network",
         "cross_validation_search_type": "randomized",
         "num_cv_folds": 5,
